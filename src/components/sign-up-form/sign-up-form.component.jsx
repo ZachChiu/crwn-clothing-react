@@ -14,12 +14,11 @@ const defaultFormFields = {
   confirmPassword: "",
 };
 
-const Authentication = () => {
+const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
   const handleChange = (event) => {
-    console.log(event);
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
@@ -41,6 +40,7 @@ const Authentication = () => {
         email,
         password
       );
+
       await createUserDocFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
@@ -95,4 +95,4 @@ const Authentication = () => {
   );
 };
 
-export default Authentication;
+export default SignUpForm;
