@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   signInWithGooglePopup,
   signInAuthWithEmailAndPassword,
@@ -15,6 +16,7 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -31,6 +33,7 @@ const SignInForm = () => {
     try {
       await signInAuthWithEmailAndPassword(email, password);
       resetFormFields();
+      navigate("/");
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
@@ -48,6 +51,7 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
+    navigate("/");
   };
 
   return (

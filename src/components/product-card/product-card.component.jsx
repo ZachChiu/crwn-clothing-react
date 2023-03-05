@@ -6,15 +6,19 @@ import {
   ProductCardContainer,
   Button,
 } from "./product-card.styles.jsx";
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import { setIsCartOpen, addItemToCart } from "../../store/cart/cart.action";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../../store/cart/cart.selector.js";
+
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;
-  const { addItemToCart, setIsCartOpen } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+
+  const dispatch = useDispatch();
 
   const addProductToCart = () => {
-    setIsCartOpen(true);
-    addItemToCart(product);
+    dispatch(setIsCartOpen(true));
+    dispatch(addItemToCart(cartItems, product));
   };
   return (
     <ProductCardContainer>
